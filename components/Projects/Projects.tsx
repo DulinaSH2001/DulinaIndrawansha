@@ -5,33 +5,66 @@ import { useRef, useState } from 'react';
 import { ExternalLink, Github } from 'lucide-react';
 import styles from './Projects.module.css';
 
+// Cinematic reveal variants
+const revealUp = {
+    hidden: { opacity: 0, y: 60, filter: 'blur(10px)' },
+    visible: {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: { duration: 0.8, ease: 'easeOut' }
+    }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.12, delayChildren: 0.2 }
+    }
+};
+
 const projects = [
     {
+        title: 'RMS Online - AI Restaurant System',
+        description: 'Full-featured restaurant management system with AI-based forecasting for booking trends and occupancy using GitHub-hosted models. Real-time AJAX updates.',
+        tech: ['Laravel', 'MySQL', 'JavaScript', 'AJAX', 'AI/ML'],
+        github: 'https://github.com/DulinaSH2001',
+        live: '#',
+    },
+    {
+        title: 'SalesOptimizer - AI Integration Gateway',
+        description: 'Universal integration gateway similar to payment SDK. Customizable architecture with AI-driven forecasting dashboards for sales performance.',
+        tech: ['Laravel', 'MySQL', 'JavaScript', 'REST API'],
+        github: 'https://github.com/DulinaSH2001',
+        live: '#',
+    },
+    {
+        title: 'Hospital Management System',
+        description: 'Complete healthcare solution with API + Web + Mobile. Flutter mobile app, Next.js admin dashboard, and RESTful APIs for seamless communication.',
+        tech: ['Laravel', 'Next.js', 'Flutter', 'MySQL', 'REST API'],
+        github: 'https://github.com/DulinaSH2001',
+        live: '#',
+    },
+    {
+        title: 'Food Delivery Microservices',
+        description: 'Microservices-based food delivery platform with Spring Boot backend, real-time location tracking via Google Maps, and GPT-4.0 for SEO-friendly descriptions.',
+        tech: ['Spring Boot', 'React', 'Kafka', 'OpenAI API'],
+        github: 'https://github.com/DulinaSH2001',
+        live: '#',
+    },
+    {
+        title: 'Job Sheet Chrome Extension',
+        description: 'Chrome extension for managing job sheet reminders and tracking daily tasks. Clean UI, fast performance, and reliable offline local storage.',
+        tech: ['JavaScript', 'Chrome Extension API', 'HTML5', 'CSS3'],
+        github: 'https://github.com/DulinaSH2001/job-sheet-extension-V1',
+        live: '#',
+    },
+    {
         title: 'EV Charge Mobile App',
-        description: 'A mobile application for EV charging station management and reservations.',
+        description: 'Mobile application for EV charging station management and reservations built with modern Android technologies.',
         tech: ['Kotlin', 'Android', 'Mobile'],
         github: 'https://github.com/DulinaSH2001/EVChargeMobileApp',
-        live: '#',
-    },
-    {
-        title: 'Saradha Lanka ERP',
-        description: 'Enterprise resource planning system for Saradha Lanka Agro Company to manage invoices and bills.',
-        tech: ['Laravel', 'Blade', 'PHP', 'MySQL'],
-        github: 'https://github.com/DulinaSH2001/Saradha_Lanka_Sub_Erp',
-        live: '#',
-    },
-    {
-        title: 'CRM Frontend',
-        description: 'Customer relationship management frontend application built with modern technologies.',
-        tech: ['TypeScript', 'React', 'Vercel'],
-        github: 'https://github.com/DulinaSH2001/crm-frontend-V1',
-        live: 'https://crm-frontend-v1-rust.vercel.app',
-    },
-    {
-        title: 'Job Sheet Extension',
-        description: 'Browser extension for managing and tracking job sheets efficiently.',
-        tech: ['JavaScript', 'Chrome Extension'],
-        github: 'https://github.com/DulinaSH2001/job-sheet-extension-V1',
         live: '#',
     },
 ];
@@ -47,23 +80,34 @@ export default function Projects() {
                 {/* Section Header */}
                 <motion.div
                     className={styles.header}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8 }}
+                    initial="hidden"
+                    animate={isInView ? 'visible' : 'hidden'}
+                    variants={revealUp}
                 >
                     <span className={styles.label}>03 — WORK</span>
                     <h2 className={styles.title}>Selected Projects</h2>
                 </motion.div>
 
                 {/* Projects List */}
-                <div className={styles.projectsList}>
+                <motion.div
+                    className={styles.projectsList}
+                    initial="hidden"
+                    animate={isInView ? 'visible' : 'hidden'}
+                    variants={staggerContainer}
+                >
                     {projects.map((project, index) => (
                         <motion.article
                             key={project.title}
                             className={styles.projectItem}
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ duration: 0.6, delay: index * 0.15 }}
+                            variants={{
+                                hidden: { opacity: 0, y: 50, filter: 'blur(8px)' },
+                                visible: {
+                                    opacity: 1,
+                                    y: 0,
+                                    filter: 'blur(0px)',
+                                    transition: { duration: 0.6 }
+                                }
+                            }}
                             onMouseEnter={() => setHoveredIndex(index)}
                             onMouseLeave={() => setHoveredIndex(null)}
                         >
@@ -102,20 +146,26 @@ export default function Projects() {
                             <div className={styles.projectLinks}>
                                 <motion.a
                                     href={project.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className={styles.projectLink}
                                     whileHover={{ scale: 1.1 }}
                                     aria-label="GitHub"
                                 >
                                     <Github size={18} />
                                 </motion.a>
-                                <motion.a
-                                    href={project.live}
-                                    className={styles.projectLink}
-                                    whileHover={{ scale: 1.1 }}
-                                    aria-label="Live Project"
-                                >
-                                    <ExternalLink size={18} />
-                                </motion.a>
+                                {project.live !== '#' && (
+                                    <motion.a
+                                        href={project.live}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={styles.projectLink}
+                                        whileHover={{ scale: 1.1 }}
+                                        aria-label="Live Project"
+                                    >
+                                        <ExternalLink size={18} />
+                                    </motion.a>
+                                )}
                             </div>
 
                             {/* Flash overlay on hover */}
@@ -127,14 +177,14 @@ export default function Projects() {
                             />
                         </motion.article>
                     ))}
-                </div>
+                </motion.div>
 
                 {/* View More */}
                 <motion.div
                     className={styles.viewMore}
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : {}}
-                    transition={{ duration: 0.6, delay: 0.8 }}
+                    initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
+                    animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+                    transition={{ duration: 0.6, delay: 0.6 }}
                 >
                     <motion.a
                         href="https://github.com/DulinaSH2001"
@@ -152,9 +202,9 @@ export default function Projects() {
             {/* Decorative line */}
             <motion.div
                 className={styles.decorLine}
-                initial={{ scaleX: 0 }}
-                animate={isInView ? { scaleX: 1 } : {}}
-                transition={{ duration: 1, delay: 0.6 }}
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
+                transition={{ duration: 1.2, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             />
         </section>
     );

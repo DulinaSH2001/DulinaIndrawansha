@@ -173,27 +173,79 @@
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+    .projectItem {
+        gap: 1.5rem;
+    }
+}
+
 @media (max-width: 768px) {
+    .projects {
+        padding: 6rem 0;
+    }
+
+    .header {
+        margin-bottom: 3rem;
+    }
+
     .projectItem {
         grid-template-columns: 1fr;
         gap: 1rem;
+        padding: 2rem 0;
     }
 
     .projectNumber {
-        order: -1;
+        font-size: 0.875rem;
+    }
+
+    .projectTitle {
+        font-size: 1.25rem;
     }
 
     .projectLinks {
         margin-top: 1rem;
     }
+
+    .techStack {
+        gap: 0.75rem;
+    }
 }
 
 @media (max-width: 480px) {
     .projects {
-        padding: 6rem 0;
+        padding: 4rem 0;
+    }
+
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .title {
+        font-size: 1.75rem;
+    }
+
+    .projectItem {
+        padding: 1.5rem 0;
     }
 
     .projectTitle {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
+    }
+
+    .projectDescription {
+        font-size: 0.8125rem;
+    }
+
+    .techTag {
+        font-size: 0.625rem;
+    }
+
+    .projectLink {
+        width: 36px;
+        height: 36px;
+    }
+
+    .viewMore {
+        margin-top: 2rem;
     }
 }

@@ -4,18 +4,41 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import styles from './Skills.module.css';
 
+// Cinematic reveal variants
+const revealUp = {
+    hidden: { opacity: 0, y: 60, filter: 'blur(10px)' },
+    visible: {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: { duration: 0.8, ease: 'easeOut' }
+    }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+    }
+};
+
 const skillCategories = [
     {
-        title: 'FRONTEND',
-        skills: ['React', 'Next.js', 'TypeScript', 'CSS/Sass', 'Framer Motion'],
-    },
-    {
         title: 'BACKEND',
-        skills: ['Node.js', 'Express', 'Python', 'PostgreSQL', 'MongoDB'],
+        skills: ['Node.js', 'Express.js', 'Laravel', 'Spring Boot', 'CodeIgniter', 'ASP.NET'],
     },
     {
-        title: 'TOOLS',
-        skills: ['Git', 'Docker', 'AWS', 'CI/CD', 'Linux'],
+        title: 'FRONTEND',
+        skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Flutter', 'Bootstrap'],
+    },
+    {
+        title: 'DATABASE',
+        skills: ['MongoDB', 'MySQL', 'Redis', 'Supabase', 'SQLite'],
+    },
+    {
+        title: 'DEVOPS & TOOLS',
+        skills: ['Docker', 'Kubernetes', 'Git', 'Postman', 'Figma'],
     },
 ];
 
@@ -29,23 +52,34 @@ export default function Skills() {
                 {/* Section Header */}
                 <motion.div
                     className={styles.header}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8 }}
+                    initial="hidden"
+                    animate={isInView ? 'visible' : 'hidden'}
+                    variants={revealUp}
                 >
                     <span className={styles.label}>02 — SKILLS</span>
                     <h2 className={styles.title}>Technologies I Work With</h2>
                 </motion.div>
 
                 {/* Skills Grid */}
-                <div className={styles.grid}>
+                <motion.div
+                    className={styles.grid}
+                    initial="hidden"
+                    animate={isInView ? 'visible' : 'hidden'}
+                    variants={staggerContainer}
+                >
                     {skillCategories.map((category, categoryIndex) => (
                         <motion.div
                             key={category.title}
                             className={styles.category}
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
+                            variants={{
+                                hidden: { opacity: 0, y: 50, filter: 'blur(8px)' },
+                                visible: {
+                                    opacity: 1,
+                                    y: 0,
+                                    filter: 'blur(0px)',
+                                    transition: { duration: 0.6 }
+                                }
+                            }}
                         >
                             <h3 className={styles.categoryTitle}>{category.title}</h3>
                             <div className={styles.skillsList}>
@@ -57,7 +91,7 @@ export default function Skills() {
                                         animate={isInView ? { opacity: 1, x: 0 } : {}}
                                         transition={{
                                             duration: 0.5,
-                                            delay: categoryIndex * 0.2 + skillIndex * 0.1
+                                            delay: 0.3 + categoryIndex * 0.15 + skillIndex * 0.08
                                         }}
                                         whileHover={{ x: 10 }}
                                     >
@@ -68,18 +102,18 @@ export default function Skills() {
                             </div>
                         </motion.div>
                     ))}
-                </div>
+                </motion.div>
 
                 {/* Additional Tech */}
                 <motion.div
                     className={styles.additionalTech}
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : {}}
-                    transition={{ duration: 0.8, delay: 0.8 }}
+                    initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
+                    animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+                    transition={{ duration: 0.8, delay: 0.6 }}
                 >
                     <span className={styles.additionalLabel}>Also Experienced With</span>
                     <div className={styles.techList}>
-                        {['GraphQL', 'Redis', 'Prisma', 'Tailwind', 'Firebase', 'Vercel', 'Figma', 'Jest'].map((tech) => (
+                        {['GraphQL', 'Kafka', 'OpenAI API', 'Google Maps API', 'Chrome Extensions', 'AJAX', 'REST APIs', 'Microservices'].map((tech) => (
                             <motion.span
                                 key={tech}
                                 className={styles.techItem}
@@ -95,9 +129,9 @@ export default function Skills() {
             {/* Decorative line */}
             <motion.div
                 className={styles.decorLine}
-                initial={{ scaleX: 0 }}
-                animate={isInView ? { scaleX: 1 } : {}}
-                transition={{ duration: 1, delay: 0.6 }}
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
+                transition={{ duration: 1.2, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             />
         </section>
     );

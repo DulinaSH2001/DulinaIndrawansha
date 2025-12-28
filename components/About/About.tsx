@@ -4,15 +4,34 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import styles from './About.module.css';
 
+// Cinematic reveal variants
+const revealUp = {
+    hidden: { opacity: 0, y: 60, filter: 'blur(10px)' },
+    visible: {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: { duration: 0.8, ease: 'easeOut' }
+    }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+    }
+};
+
 export default function About() {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: '-100px' });
 
     const stats = [
-        { number: '5+', label: 'Years Experience' },
-        { number: '50+', label: 'Projects Completed' },
-        { number: '30+', label: 'Happy Clients' },
-        { number: '10+', label: 'Technologies' },
+        { number: '2+', label: 'Years Experience' },
+        { number: '10+', label: 'Projects Delivered' },
+        { number: '5+', label: 'Enterprise Systems' },
+        { number: '15+', label: 'Technologies' },
     ];
 
     return (
@@ -21,15 +40,15 @@ export default function About() {
                 {/* Section Header */}
                 <motion.div
                     className={styles.header}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8 }}
+                    initial="hidden"
+                    animate={isInView ? 'visible' : 'hidden'}
+                    variants={revealUp}
                 >
                     <span className={styles.label}>01 — ABOUT</span>
                     <h2 className={styles.title}>
-                        Passionate about building
+                        Backend Developer
                         <br />
-                        <span className={styles.highlight}>exceptional</span> digital experiences
+                        <span className={styles.highlight}>Building</span> scalable systems
                     </h2>
                 </motion.div>
 
@@ -37,50 +56,79 @@ export default function About() {
                     {/* Text Content - Left */}
                     <motion.div
                         className={styles.textContent}
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+                        initial="hidden"
+                        animate={isInView ? 'visible' : 'hidden'}
+                        variants={{
+                            hidden: { opacity: 0, y: 60, filter: 'blur(10px)' },
+                            visible: {
+                                opacity: 1,
+                                y: 0,
+                                filter: 'blur(0px)',
+                                transition: { duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }
+                            }
+                        }}
                     >
                         <div className={styles.bioBlock}>
                             <p className={styles.bio}>
-                                I&apos;m a passionate <strong>Full Stack Developer</strong> with a keen eye for detail
-                                and a love for creating seamless user experiences. With expertise spanning both
-                                frontend and backend technologies, I bring ideas to life through clean, efficient code.
+                                I&apos;m an <strong>Information Technology undergraduate</strong> at SLIIT,
+                                specializing in Software Engineering. Currently working as a Full Stack Developer
+                                at Saradha Lanka Agro, where I build enterprise-grade <strong>ERP and CRM systems</strong>.
                             </p>
                             <p className={styles.bio}>
-                                My journey in tech has led me through diverse projects—from sleek web applications
-                                to complex enterprise solutions. I believe in continuous learning and staying
-                                ahead of the curve with the latest technologies.
+                                My expertise lies in <strong>Backend Development</strong> with Node.js, Express.js,
+                                and Laravel. I&apos;ve built microservices architectures, RESTful APIs, and
+                                integrated AI-powered features into production systems. Passionate about
+                                database optimization, system scalability, and delivering impactful solutions.
                             </p>
                         </div>
 
                         {/* Skills Preview */}
-                        <div className={styles.skillPreview}>
-                            {['React', 'Next.js', 'TypeScript', 'Node.js', 'Python'].map((skill, i) => (
+                        <motion.div
+                            className={styles.skillPreview}
+                            initial="hidden"
+                            animate={isInView ? 'visible' : 'hidden'}
+                            variants={staggerContainer}
+                        >
+                            {['Node.js', 'Express.js', 'Laravel', 'MongoDB', 'MySQL'].map((skill, i) => (
                                 <motion.span
                                     key={skill}
                                     className={styles.skillTag}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                    transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
+                                    variants={{
+                                        hidden: { opacity: 0, y: 20, filter: 'blur(5px)' },
+                                        visible: {
+                                            opacity: 1,
+                                            y: 0,
+                                            filter: 'blur(0px)',
+                                            transition: { duration: 0.5 }
+                                        }
+                                    }}
                                 >
                                     {skill}
                                 </motion.span>
                             ))}
-                        </div>
+                        </motion.div>
                     </motion.div>
 
                     {/* Stats - Right */}
                     <motion.div
                         className={styles.statsGrid}
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.8, delay: 0.4 }}
+                        initial="hidden"
+                        animate={isInView ? 'visible' : 'hidden'}
+                        variants={staggerContainer}
                     >
                         {stats.map((stat, index) => (
                             <motion.div
                                 key={stat.label}
                                 className={styles.statCard}
+                                variants={{
+                                    hidden: { opacity: 0, y: 40, filter: 'blur(8px)' },
+                                    visible: {
+                                        opacity: 1,
+                                        y: 0,
+                                        filter: 'blur(0px)',
+                                        transition: { duration: 0.6 }
+                                    }
+                                }}
                                 whileHover={{
                                     y: -5,
                                     transition: { duration: 0.2 }
@@ -100,9 +148,9 @@ export default function About() {
             {/* Decorative line */}
             <motion.div
                 className={styles.decorLine}
-                initial={{ scaleX: 0 }}
-                animate={isInView ? { scaleX: 1 } : {}}
-                transition={{ duration: 1, delay: 0.6 }}
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
+                transition={{ duration: 1.2, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             />
         </section>
     );

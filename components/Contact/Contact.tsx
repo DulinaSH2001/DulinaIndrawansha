@@ -2,12 +2,23 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Send, Github, Linkedin, Twitter } from 'lucide-react';
 import styles from './Contact.module.css';
+
+// Cinematic reveal variants
+const revealUp = {
+    hidden: { opacity: 0, y: 60, filter: 'blur(10px)' },
+    visible: {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: { duration: 0.8, ease: 'easeOut' }
+    }
+};
 
 const socialLinks = [
     { icon: Github, href: 'https://github.com/DulinaSH2001', label: 'GitHub' },
-    { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/dulina-hejitha-indrawansha-73046026a', label: 'LinkedIn' },
     { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
 ];
 
@@ -21,13 +32,26 @@ export default function Contact() {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        setIsSubmitting(false);
-        setFormState({ name: '', email: '', message: '' });
-        alert('Message sent! Thank you for reaching out.');
+
+        // Create Gmail compose URL with form data
+        const recipientEmail = 'dulina.dev@gmail.com';
+        const subject = encodeURIComponent(`Portfolio Contact from ${formState.name}`);
+        const body = encodeURIComponent(
+            `Name: ${formState.name}\nEmail: ${formState.email}\n\nMessage:\n${formState.message}`
+        );
+
+        // Open Gmail compose in new tab
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${recipientEmail}&su=${subject}&body=${body}`;
+        window.open(gmailUrl, '_blank');
+
+        // Reset form
+        setTimeout(() => {
+            setIsSubmitting(false);
+            setFormState({ name: '', email: '', message: '' });
+        }, 500);
     };
 
     return (
@@ -36,9 +60,9 @@ export default function Contact() {
                 {/* Section Header */}
                 <motion.div
                     className={styles.header}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8 }}
+                    initial="hidden"
+                    animate={isInView ? 'visible' : 'hidden'}
+                    variants={revealUp}
                 >
                     <span className={styles.label}>04 — CONTACT</span>
                     <h2 className={styles.title}>Let&apos;s Work Together</h2>
@@ -51,9 +75,9 @@ export default function Contact() {
                     {/* Contact Form */}
                     <motion.form
                         className={styles.form}
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+                        initial={{ opacity: 0, y: 50, filter: 'blur(8px)' }}
+                        animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+                        transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
                         onSubmit={handleSubmit}
                     >
                         <div className={styles.formRow}>
@@ -118,9 +142,9 @@ export default function Contact() {
                     {/* Contact Info */}
                     <motion.div
                         className={styles.info}
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.8, delay: 0.4 }}
+                        initial={{ opacity: 0, y: 50, filter: 'blur(8px)' }}
+                        animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+                        transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                     >
                         <div className={styles.infoItem}>
                             <span className={styles.infoLabel}>Email</span>
@@ -159,8 +183,8 @@ export default function Contact() {
             {/* Footer */}
             <motion.footer
                 className={styles.footer}
-                initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 1 } : {}}
+                initial={{ opacity: 0, y: 20, filter: 'blur(5px)' }}
+                animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
                 transition={{ duration: 0.8, delay: 0.6 }}
             >
                 <p className={styles.copyright}>
