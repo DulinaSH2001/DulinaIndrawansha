@@ -256,4 +256,22 @@
         width: 280px;
         height: 380px;
     }
+
+    /* Mobile: Show photo illuminated by default */
+    .darkOverlay {
+        opacity: 0.15 !important;
+    }
+
+    /* Lighter vignette on mobile */
+    .vignette {
+        background:
+            linear-gradient(to bottom, black 0%, transparent 20%),
+            linear-gradient(to top, black 0%, transparent 20%),
+            linear-gradient(to right, black 0%, transparent 20%),
+            linear-gradient(to left, black 0%, transparent 20%),
+            radial-gradient(ellipse at center,
+                transparent 40%,
+                rgba(0, 0, 0, 0.3) 70%,
+                black 100%);
+    }
 }
