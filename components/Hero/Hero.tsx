@@ -107,7 +107,7 @@ export default function Hero() {
                     <div className={`${styles.photoWrapper} ${isIlluminated ? styles.illuminated : ''}`}>
                         <div className={styles.photoMask}>
                             <Image
-                                src="/profile.jpg"
+                                src="/dulina.jpg"
                                 alt="Dulina Indrawansha"
                                 fill
                                 className={styles.photo}

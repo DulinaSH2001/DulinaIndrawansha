@@ -151,14 +151,24 @@
     filter: grayscale(100%) contrast(1.2);
 }
 
-/* Vintage Vignette - Dark corners */
+/* Edge Fade - Hide all borders with black */
 .vignette {
     position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center,
-            transparent 20%,
-            rgba(0, 0, 0, 0.4) 60%,
-            rgba(0, 0, 0, 0.95) 100%);
+    inset: -10px;
+    background:
+        /* Top edge fade */
+        linear-gradient(to bottom, black 0%, transparent 25%),
+        /* Bottom edge fade */
+        linear-gradient(to top, black 0%, transparent 25%),
+        /* Left edge fade */
+        linear-gradient(to right, black 0%, transparent 25%),
+        /* Right edge fade */
+        linear-gradient(to left, black 0%, transparent 25%),
+        /* Center vignette */
+        radial-gradient(ellipse at center,
+            transparent 30%,
+            rgba(0, 0, 0, 0.5) 70%,
+            black 100%);
     pointer-events: none;
     z-index: 2;
 }
