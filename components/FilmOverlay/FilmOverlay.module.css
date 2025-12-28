@@ -8,164 +8,65 @@
     z-index: 9999;
 }
 
-/* CRT Scanlines - very subtle */
+/* CRT Scanlines - static, no animation */
 .scanlines {
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(0deg,
             transparent,
             transparent 3px,
-            rgba(0, 0, 0, 0.03) 3px,
-            rgba(0, 0, 0, 0.03) 6px);
+            rgba(0, 0, 0, 0.02) 3px,
+            rgba(0, 0, 0, 0.02) 6px);
 }
 
-/* Film Grain Texture */
+/* Film Grain - STATIC (no animation for performance) */
 .grain {
     position: absolute;
-    inset: -200%;
-    width: 400%;
-    height: 400%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.04;
-    animation: grain 0.8s steps(6) infinite;
+    inset: 0;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANRSURBVGiB7ZpNixNBEIafSTYxJqvuoqKgF72IF0FQFC+Cf8Bf4sGbv8Sf4c2LIIgHwR9g8OBNEFdEN5rE7MTtzIf7wYbJTmc6mYmw75OZrq6u6qeru6cHLBaLxWKxWCwWi8VisVgsFovFUh48x7mpVmut9PJ5n/cGXgUgXTOdP2lDnpdhfvMV/xZ/OMdzTu5z5JV3gcftxPMbN+y2d+K1nD9+2fHG2X5e5Xg/Gh09AHA8+Xu4u8u5lRVkpkmGw/ht3+bqxM7+B9PcXV46dHB/cffBq6ufufn8BRFhMBzi+z6+7xNFEVEUJdtxHBPHceF2ytSlSZ1zJRf3a8S0bOv80mOlWi1Y5PNxC7v9PuGhQ6R1TdXZNpu8d/06MJlJLqJxc8bWs2eodN+1vJdGJRIJ2s3mZGKvR9TrJfvzEm/+e0Tx2A8tXWb75k1cz0N9n/juXeGjT6JnNBYq2f3CdS5KHMdJ/4vD/y2OO+cSx/HQewYidnaXCvv5Gg4ZDAaMhoMxsxjFMSvNpkndYJLGszMcDAZ452+zf/48RydO4r/4lNl3zAEKxgB8xNcpFqJpnADWGI2EwZ4KkwLUU6/D4UPc3L/D+N49gnv32Xr8GIBGo156O0X7nO6PHAP2x3F6LypKSZxYPq/EEI6QXk+/7i8jFT6p1yGKxibm6uvX+Q86B1Hm6KxnPB9zDp3vOBRJHMcslEsKfadCyNQOq8yEyGzqOYEJAXNGhOTZ/z/l3Dl8z0NEJjaJaHO+28V1XaIoQtxsXM+js9IibDZJN3CZ0Hmd+m7fRiRlQiS97cDAVIcILKvEE9pxzLBex/d9BICRxPE9evfvgzMxU1Z1zZjZ5d1tuzQiQl/eJw4CfNdNzIy7kCq2lDWsNpt0l5dJy3uN9g/mE0J/cIb4xiO8J0+I0mU8YGUwjpM1YNKxSjyhncmsOPz5yVNMySNSSjg4SKRRJ3S9cQ6m+Vp0iJRRsyhMrYNmz5wVz8R1QWI0axJRpM1r1wgPHybcuAGi6c/ooJ51VKqtpIMlZuqrqGtIiFAoR0RYX1lBPQ8RYePePdIQJy6OzEEJ10xJGJOIIq6xd/IkmpqZZZZZhtRpC5l/+24f0fNL/AU1ZxaLxWL5D/ALqU9xG0mZ41YAAAAASUVORK5CYII=");
+    opacity: 0.03;
+    /* No animation - static grain for performance */
 }
 
-@keyframes grain {
-
-    0%,
-    100% {
-        transform: translate(0, 0);
-    }
-
-    10% {
-        transform: translate(-5%, -10%);
-    }
-
-    20% {
-        transform: translate(-15%, 5%);
-    }
-
-    30% {
-        transform: translate(7%, -25%);
-    }
-
-    40% {
-        transform: translate(-5%, 25%);
-    }
-
-    50% {
-        transform: translate(-15%, 10%);
-    }
-
-    60% {
-        transform: translate(15%, 0%);
-    }
-
-    70% {
-        transform: translate(0%, 15%);
-    }
-
-    80% {
-        transform: translate(3%, 35%);
-    }
-
-    90% {
-        transform: translate(-10%, 10%);
-    }
-}
-
-/* Vertical Scratches */
+/* Scratches - REMOVED animation for performance */
 .scratches {
     position: absolute;
     inset: 0;
     background-image:
         repeating-linear-gradient(90deg,
             transparent,
-            transparent 100px,
-            rgba(255, 255, 255, 0.01) 100px,
-            rgba(255, 255, 255, 0.01) 101px),
-        repeating-linear-gradient(90deg,
-            transparent,
-            transparent 200px,
-            rgba(255, 255, 255, 0.02) 200px,
-            rgba(255, 255, 255, 0.02) 201px);
-    animation: scratches 0.4s steps(8) infinite;
+            transparent 150px,
+            rgba(255, 255, 255, 0.008) 150px,
+            rgba(255, 255, 255, 0.008) 151px);
+    /* Static - no animation */
 }
 
-@keyframes scratches {
-    0% {
-        background-position: 0 0;
-    }
-
-    100% {
-        background-position: 50px 0;
-    }
-}
-
-/* Vignette - Dark edges like old film */
+/* Vignette - Dark edges (no animation, just static) */
 .vignette {
     position: absolute;
     inset: 0;
     background: radial-gradient(ellipse at center,
             transparent 40%,
-            rgba(0, 0, 0, 0.3) 80%,
-            rgba(0, 0, 0, 0.6) 100%);
+            rgba(0, 0, 0, 0.25) 80%,
+            rgba(0, 0, 0, 0.5) 100%);
 }
 
-/* Subtle Flicker Effect */
+/* Flicker - REMOVED for performance */
 .flicker {
-    position: absolute;
-    inset: 0;
-    background: transparent;
-    animation: flicker 4s linear infinite;
+    display: none;
 }
 
-@keyframes flicker {
-
-    0%,
-    100% {
-        opacity: 0;
-    }
-
-    2% {
-        opacity: 0.02;
-        background: rgba(255, 255, 255, 0.01);
-    }
-
-    4% {
-        opacity: 0;
-    }
-
-    48% {
-        opacity: 0;
-    }
-
-    50% {
-        opacity: 0.015;
-        background: rgba(255, 255, 255, 0.01);
-    }
-
-    52% {
-        opacity: 0;
-    }
-
-    96% {
-        opacity: 0;
-    }
-
-    98% {
-        opacity: 0.02;
-        background: rgba(255, 255, 255, 0.01);
-    }
-}
-
-/* Responsive - reduce effects on mobile for performance */
+/* Responsive - even lighter on mobile */
 @media (max-width: 768px) {
     .grain {
-        opacity: 0.025;
+        opacity: 0.02;
     }
 
     .scratches {
+        display: none;
+    }
+
+    .scanlines {
         opacity: 0.5;
     }
 }
