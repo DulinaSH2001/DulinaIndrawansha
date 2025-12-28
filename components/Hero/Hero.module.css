@@ -1,0 +1,249 @@
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #000000;
+}
+
+/* Film Grain Effect */
+.filmGrain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Content Layout */
+.content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    padding: 2rem 4rem;
+    gap: 4rem;
+}
+
+/* Text Content */
+.textContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Name Container */
+.nameContainer {
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+/* DULINA - Outline only text */
+.firstName {
+    font-size: clamp(3rem, 10vw, 9rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    line-height: 0.85;
+    /* Outline only - no fill */
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+}
+
+/* INDRAWANSHA - Normal solid text */
+.lastName {
+    font-size: clamp(2.5rem, 8vw, 7rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    line-height: 0.85;
+    /* Solid white text */
+    color: white;
+}
+
+/* Role */
+.role {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    font-weight: 300;
+}
+
+/* CTA Buttons */
+.cta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: white;
+    color: black;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.btnOutline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btnOutline:hover {
+    border-color: white;
+}
+
+/* Photo Container */
+.photoContainer {
+    flex: 0 0 450px;
+    height: 550px;
+    position: relative;
+}
+
+.photoWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.photoMask {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.photo {
+    object-fit: cover;
+    object-position: center top;
+    filter: grayscale(100%) contrast(1.2);
+}
+
+/* Vintage Vignette - Dark corners */
+.vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center,
+            transparent 20%,
+            rgba(0, 0, 0, 0.4) 60%,
+            rgba(0, 0, 0, 0.95) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Dark Overlay */
+.darkOverlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    z-index: 3;
+    transition: opacity 1s ease;
+}
+
+/* When illuminated */
+.illuminated .darkOverlay {
+    opacity: 0.15;
+}
+
+/* Scroll Indicator */
+.scrollIndicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.625rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+.scrollLine {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+    transform-origin: top;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .content {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .textContent {
+        align-items: center;
+    }
+
+    .photoContainer {
+        flex: none;
+        width: 320px;
+        height: 420px;
+    }
+}
+
+@media (max-width: 768px) {
+    .firstName {
+        font-size: clamp(2.5rem, 12vw, 5rem);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+    }
+
+    .lastName {
+        font-size: clamp(2rem, 10vw, 4rem);
+    }
+
+    .cta {
+        flex-direction: column;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .btn,
+    .btnOutline {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .photoContainer {
+        width: 280px;
+        height: 380px;
+    }
+}
