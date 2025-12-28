@@ -46,9 +46,9 @@ export default function About() {
                 >
                     <span className={styles.label}>01 — ABOUT</span>
                     <h2 className={styles.title}>
-                        Backend Developer
+                        Aspiring Backend Developer
                         <br />
-                        <span className={styles.highlight}>Building</span> scalable systems
+                        <span className={styles.highlight}>Passionate about</span> scalable systems
                     </h2>
                 </motion.div>
 
@@ -75,9 +75,9 @@ export default function About() {
                                 at Saradha Lanka Agro, where I build enterprise-grade <strong>ERP and CRM systems</strong>.
                             </p>
                             <p className={styles.bio}>
-                                My expertise lies in <strong>Backend Development</strong> with Node.js, Express.js,
-                                and Laravel. I&apos;ve built microservices architectures, RESTful APIs, and
-                                integrated AI-powered features into production systems. Passionate about
+                                My passion lies in <strong>Backend Development</strong> with Node.js, Express.js,
+                                and Laravel. I&apos;ve worked on microservices architectures, RESTful APIs, and
+                                integrated AI-powered features into production systems. Eager to learn more about
                                 database optimization, system scalability, and delivering impactful solutions.
                             </p>
                         </div>
