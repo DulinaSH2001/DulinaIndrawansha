@@ -63,7 +63,7 @@ export const fadeInDirection = (direction: 'up' | 'down' | 'left' | 'right' = 'u
             transition: {
                 duration: 0.7,
                 delay,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                ease: [0.25, 0.46, 0.45, 0.94] as const,
             },
         },
     };
@@ -99,7 +99,7 @@ export const textReveal = {
         transition: {
             delay: i * 0.1,
             duration: 0.5,
-            ease: 'easeOut',
+            ease: 'easeOut' as const,
         },
     }),
 };
